@@ -1,4 +1,4 @@
-compileIndex <- function (l1=FTHG~1, l2=FTAG~1, l1l2= ~c(Home,Away)+c(Away,Home), l3=~1,
+compileIndex2 <- function (l1=FTHG~1, l2=FTAG~1, l1l2= ~c(Home,Away)+c(Away,Home), l3=~1,
                           data, maxit=300, xi=NULL, fordate=NULL, fun="glm", inflated=TRUE) {
   ## l1, l2, l3 are weighted linear function of home, away, independency, l1l2 is
   ## defined the home and away into counting, data is sample data for measurement,

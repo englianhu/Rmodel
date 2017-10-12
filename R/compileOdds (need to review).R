@@ -34,8 +34,8 @@ compileOdds <- function(dbase, mbase, HT = TRUE, FT = TRUE, homeavd = TRUE, infl
   tsFT <- function(x) { paste('tsFT_', substitute(x), sep = '')}
   getData <- function(dbdat, tble) {
     db = as.character(dbdat)
-    con = odbcConnectAccess(paste("C:/Program Files (x86)/LeaguePad/database/", #64bit show 'Program Files (x86)'
-                                  db, ".mdb", sep = ''))
+    if(!dir.exists('database')) dir.create('database')
+    con = odbcConnectAccess(paste("./database/", db, ".mdb", sep = '')) #can use `mplus` open source tool to create empty *.mdb files.
     x = structure(sqlFetch(con, tble)[-1], row.names = 
                     as.character(sqlFetch(con, tble)$Date))
     colnames(x) = gsub('_', ' ', colnames(x)); close(con); rm(con); x }
