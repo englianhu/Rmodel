@@ -10,6 +10,11 @@
 
   `Rmodel` which compile the index of soccer teams and predict the soccer scores. Kindly refer to [Odds Modelling and Testing Inefficiency of Sports Bookmakers](https://github.com/scibrokes/odds-modelling-and-testing-inefficiency-of-sports-bookmakers) for further information.
 
+```
+if(!require('devtools')) install.packages('devtools')
+devtools::install_github('englianhu/Rmodel')
+```
+
 ## 2. Betting Strategy
 
   I have simulate a betting model on 13 bookmakers across 2 soccer seasons in English 2011/12 and 2012/13. Kindly refer to below techincal research.
