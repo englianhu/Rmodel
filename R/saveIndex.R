@@ -1,5 +1,5 @@
 saveIndex <- function(country, year, indexdata = NULL, oddsdata = NULL, basic = TRUE, FT = TRUE) {
-  # year is the names of the team rating Access *.accdb file we want to naming.
+  # year is the names of the team rating Access *.mdb file we want to naming.
   # indexdata is the calculated em result from compileIndex. basic and FT only workable
   # for save indexdata, they will useless either TRUE or FALSE for save oddsdata.
   # basic determines if we want to save bs_offence or ts_offence... from em$offence...
@@ -15,8 +15,8 @@ saveIndex <- function(country, year, indexdata = NULL, oddsdata = NULL, basic = 
   year <- substitute(year)
   country = ifelse(is.character(country), country, "Please key in country name in character")
   
-  con <- odbcConnectAccess2007(paste("E:/Database/",country,"/",
-                                 year, ".accdb", sep = ''))
+  con <- odbcConnectAccess2007(paste("./data/",country,"/",
+                                 year, ".mdb", sep = ''))
   
   if(!is.null(indexdata)) { indexdata <- indexdata
                             names(indexdata$offence) <- gsub(' ','_',names(indexdata$offence))

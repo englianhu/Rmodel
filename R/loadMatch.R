@@ -1,6 +1,6 @@
 loadMatch = function(country, year) {
   # dat is the name of result from function downloadMatch()
-  #   country is the name of folder, year is the name of accdb file.
+  #   country is the name of folder, year is the name of mdb file.
   # example:
   #   year = 2013
   #   eng2013 = downloadMatch(URL, 2013)
@@ -9,16 +9,16 @@ loadMatch = function(country, year) {
   require(RODBC, quietly = T)
   options(warn = -1)
   
-  league = dir(paste("E:/Database/",country,sep=""))[regexpr("accdb$",dir(paste("E:/Database/",country,sep="")))<0]
+  league = dir(paste("./data/",country,sep=""))[regexpr("mdb$",dir(paste("./data/",country,sep="")))<0]
   country = ifelse(is.character(country), country, "Please key in country name in character")
   
-  leagueID = sqlFetch(odbcConnectAccess2007(paste("E:/Database/",country,"/",year,".accdb",sep="")),sqtable="leagueID")
+  leagueID = sqlFetch(odbcConnectAccess2007(paste("./data/",country,"/",year,".mdb",sep="")),sqtable="leagueID")
   odbcCloseAll()
   
   if(length(year) == 1){
     con = lapply(league, function(x) { 
-      odbcConnectAccess2007(paste("E:/Database/", country, "/",
-                                  x, "/", year, ".accdb", sep = "")) })
+      odbcConnectAccess2007(paste("./data/", country, "/",
+                                  x, "/", year, ".mdb", sep = "")) })
     
     conM = lapply(seq(as.list(league)), function(i) {
       if(any(regexpr("matches",sqlTables(con[[i]])$TABLE_NAME) > 0)) {
@@ -50,8 +50,8 @@ loadMatch = function(country, year) {
     
   } else {
     con = lapply(league, function(x) lapply(seq(year),
-                                            function(j) odbcConnectAccess2007(paste("E:/Database/", country, "/",
-                                                                                    x, "/", year[j], ".accdb", sep = ""))))
+                                            function(j) odbcConnectAccess2007(paste("./data/", country, "/",
+                                                                                    x, "/", year[j], ".mdb", sep = ""))))
     
     conM = lapply(as.list(seq(league)), function(i) lapply(as.list(seq(year)),
                                                            function(j) if(any(regexpr("matches", sqlTables(con[[i]][[j]])$TABLE_NAME) > 0)) {

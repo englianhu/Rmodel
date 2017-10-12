@@ -23,8 +23,8 @@ optSmoother <- function(country, year, mbase, dbaseData = "FT", homeavd = TRUE,
     bcFT <- function(x) { paste('tsFT_', substitute(x), sep = '')}}
   
   getData <- function(tble, country=country, year=year) {
-    con <- odbcConnectAccess2007(paste("E:/Database/",country,"/",
-                                       year,".accdb",sep=""))
+    con <- odbcConnectAccess2007(paste("./data/",country,"/",
+                                       year,".mdb",sep=""))
     x <- structure(sqlFetch(con, tble)[-1], row.names = 
                      as.character(as.Date(sqlFetch(con, tble)$Date)))
     colnames(x) <- gsub('_', ' ', colnames(x)); odbcClose(con); rm(con); x }
