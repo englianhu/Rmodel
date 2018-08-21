@@ -15,6 +15,9 @@ compileIndex2 <- function (l1=FTHG~1, l2=FTAG~1, l1l2= ~c(Home,Away)+c(Away,Home
                    maxit = maxit, xi = xi, fordate = fordate, fun = fun, inflated = inflated)
   tempcall <- as.call(c(expression(compileIndex), templist)); rm(templist)
 
+  if(!require('speedglm')) install.packages('speedglm')
+  library('speedglm')
+  
   if(!all(fun %in% c('glm', 'speedglm')))
     stop('The fun argument must be either "glm" or "speedglm".\n',call.=FALSE)
 
