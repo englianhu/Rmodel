@@ -6,9 +6,9 @@ compileIndex2 <- function (l1=FTHG~1, l2=FTAG~1, l1l2= ~c(Home,Away)+c(Away,Home
   ## auto convert to negative value from 0 to 1, bigger value cause weighted more
   ## on latest results. fordate is the date to forecast. fun='glm' or 'speedglm'
   ## 
-  #'@ exmp1(basic): em<-compileIndex(FTHG~1,FTAG~1,~c(Home,Away)+c(Away,Home),data=sample)
-  #'@ exmp2(time series): em <- compileIndex(FTHG~1, FTAG~1, ~c(Home,Away)+c(Away,Home),
-  #'@                           data=sample, xi=0.0065, fordate='2010-08-12', fun='speedglm')
+  # exmp1(basic): em<-compileIndex(FTHG~1,FTAG~1,~c(Home,Away)+c(Away,Home),data=sample)
+  # exmp2(time series): em <- compileIndex(FTHG~1, FTAG~1, ~c(Home,Away)+c(Away,Home),
+  #                           data=sample, xi=0.0065, fordate='2010-08-12', fun='speedglm')
 
   options(warn = -1)
   templist <- list(l1 = l1, l2 = l2, l1l2 = l1l2, l3 = l3, data = substitute(data),

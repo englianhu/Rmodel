@@ -1,13 +1,21 @@
 Package: Rmodel
 Type: Package
 Title: Rmodel (Odds Modelling and Testing Inefficiency of Sports Bookmakers)
-Version: 0.1.0
-Author: RYO, Eng Lian Hu
+Version: 0.2.1
+Author@R: ®γσ, ξηg Lian Hu
 Maintainer: The package maintainer <englianhu@gmail.com>
 Description: Soccer scores modelling and betting.
-License: GNU
-Encoding: UTF-8
 LazyData: true
-Suggests: knitr, rmarkdown
+License: GPL (>= 3) 
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Suggests: knitr, rmarkdown, testthat (>= 3.0.0), markdown (>= 1.0), 
+	magrittr (>= 1.5)
 VignetteBuilder: knitr
-RoxygenNote: 6.1.0
+NeedsCompilation: no
+Packaged: 2021-08-03 03:29:56 JST; 
+Depends: R (>= 2.10), dplyr (>= 1.0), RODBC (>= 1.3.17),
+	 speedglm (>= 0.3.3)
+Imports: tidyr
+Config/testthat/edition: 3
