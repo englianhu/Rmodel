@@ -1,5 +1,9 @@
 # Rmodel
 
+<!-- badges: start -->
+  [![R-CMD-check](https://github.com/scibrokes/Rmodel/workflows/R-CMD-check/badge.svg)](https://github.com/scibrokes/Rmodel/actions)
+<!-- badges: end -->
+
 ## 1. Soccer Scores Modelling
 
   Initially I collected soccer odds data of 40 bookmakers (in Excel format) and compare the efficiency and accuracy. I tried to submit the spreadsheets to [Ladbrokes](https://www.ladbrokescoralplc.com/) in order to get the trading department when I worked in [Scicom (MSC) Bhd](http://www.scicom-intl.com/).
