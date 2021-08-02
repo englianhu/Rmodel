@@ -33,4 +33,4 @@ Kindly refer to below for further information.
 
 ---
 
-**Powered by - Copyright® Intellectual Property Rights of <img src='figure/oda-army2.jpg' width='24'> [Scibrokes®](http://www.scibrokes.com)個人の経営企業**
+**Powered by - Copyright® Intellectual Property Rights of <img src='figure/scb-logo3rs.jpg' width='18'> [Scibrokes®](http://www.scibrokes.com)個人の経営企業**
