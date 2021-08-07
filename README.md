@@ -1,5 +1,7 @@
 # Rmodel
 
+![GitHub R package version](https://img.shields.io/github/r-package/v/englianhu/rmodel?color=%238E1F07&style=plastic)
+
 [![R](https://github.com/scibrokes/Rmodel/actions/workflows/r.yml/badge.svg)](https://github.com/scibrokes/Rmodel/actions/workflows/r.yml)
 
 <!-- badges: start -->
