@@ -1,3 +1,6 @@
+## How to create a R package
+## https://www.youtube.com/watch?v=MoszELQFrvQ
+
 install.packages(c("aqp", "bayestestR", "bbmle", "cNORM", "credentials", "e1071", 
                    "echarts4r", "fastmatch", "ggmulti", "gss", "hardhat", 
                    "HMMextra0s", "jpeg", "matrixcalc", "maxLik", "mlr3misc", 
@@ -29,4 +32,5 @@ install.packages(c("aqp", "bayestestR", "cNORM", "credentials", "e1071",
                    "reprex", "rsconnect", "showtext", "sysfonts", "tsBSS"), 
                  lib = '/usr/lib/R/library', 
                  dependencies = TRUE, INSTALL_opts = '--no-lock')
+
 
