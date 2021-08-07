@@ -2,7 +2,7 @@ Package: Rmodel
 Type: Package
 Title: Rmodel (Odds Modelling and Testing Inefficiency of Sports Bookmakers)
 Version: 0.2.1
-Author@R: ®γσ, ξηg Lian Hu
+Author: ®γσ, ξηg Lian Hu
 Maintainer: The package maintainer <englianhu@gmail.com>
 Description: Soccer scores modelling and betting.
 LazyData: true
