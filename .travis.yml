@@ -15,7 +15,8 @@ git:
   - sparse_checkout: skip-worktree-map-file
   - autocrlf: input
   - symlinks: true  
-  - depth: false  
+  - depth: true
+  - clonr: true
 
 before_script:
   - composer install -no-interaction
