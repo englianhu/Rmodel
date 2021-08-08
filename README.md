@@ -7,6 +7,13 @@
 <!-- badges: start -->
   [![R-CMD-check](https://github.com/scibrokes/Rmodel/workflows/R-CMD-check/badge.svg)](https://github.com/scibrokes/Rmodel/actions)
 <!-- badges: end -->
+<!-- badges: start -->
+R CMD check: [![R-CMD-check](https://github.com/scibrokes/RModel/workflows/R-CMD-check/badge.svg)](https://github.com/scibrokes/RModel/actions)
+
+AppVeyor: [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/englianhu/RModel?branch=main&svg=true)](https://ci.appveyor.com/project/englianhu/RModel)
+
+Travis: [![Travis Build Status](https://travis-ci.com/englianhu/wk4package.svg?branch=main)](https://travis-ci.com/englianhu/wk4package)
+<!-- badges: end -->
 
 ## 1. Soccer Scores Modelling
 
