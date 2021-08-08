@@ -4,6 +4,7 @@ cache: packages
 os:
   - windows
   - linux
+    - dist: focal
   - osx
 env:
   - DB=postgres
