@@ -1,7 +1,10 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 language: R
 cache: packages
-os: linux
+os:
+  - windows
+  - linux
+  - osx
 env:
   - DB=postgres
   - SH=bash
