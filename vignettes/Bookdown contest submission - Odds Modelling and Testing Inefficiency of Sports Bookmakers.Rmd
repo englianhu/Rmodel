@@ -1,9 +1,9 @@
 ---
-title: "[Odds Modelling and Testing Inefficiency of Sports Bookmakers](https://github.com/scibrokes/odds-modelling-and-testing-inefficiency-of-sports-bookmakers)"
+title: "[Bookdown contest submission - Odds Modelling and Testing Inefficiency of Sports Bookmakers](https://github.com/scibrokes/odds-modelling-and-testing-inefficiency-of-sports-bookmakers)"
 date: "`r lubridate::today('Asia/Tokyo')`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Odds Modelling and Testing Inefficiency of Sports Bookmakers}
+  %\VignetteIndexEntry{Bookdown contest submission - Odds Modelling and Testing Inefficiency of Sports Bookmakers}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---

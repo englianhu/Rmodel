@@ -15,6 +15,7 @@ install.packages(c("aqp", "bayestestR", "bbmle", "cNORM", "credentials", "e1071"
                    "MNLpred", "paletteer", "pbdZMQ", "reprex", "rsconnect", 
                    "showtext", "sysfonts", "tsBSS"), 
                  lib='/usr/lib/R/library', dependencies = TRUE, 
+                 'https://cloud.r-project.org', 
                  INSTALL_opts=c('--no-multiarch', '--no-lock'))
 
 install.packages(c("aqp", "bayestestR", "cNORM", "credentials", "e1071", 
@@ -30,7 +31,11 @@ install.packages(c("aqp", "bayestestR", "cNORM", "credentials", "e1071",
                    "x13binary", "countrycode", "echarts4r", "foghorn", 
                    "IRdisplay", "IRkernel", "MNLpred", "paletteer", "pbdZMQ", 
                    "reprex", "rsconnect", "showtext", "sysfonts", "tsBSS"), 
-                 lib = '/usr/lib/R/library', 
+                 lib = '/usr/lib/R/library', 'https://cloud.r-project.org', 
                  dependencies = TRUE, INSTALL_opts = '--no-lock')
 
+install.packages(
+  c('xfun', 'tzdb', 'voom', 'rmarkdown', 'Rcpp', 'reprex'), 
+  lib = '/usr/lib/R/library', 'https://cloud.r-project.org', 
+  dependencies = TRUE, INSTALL_opts = '--no-lock')
 
