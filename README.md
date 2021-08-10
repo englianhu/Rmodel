@@ -4,7 +4,7 @@
 [![R](https://github.com/scibrokes/Rmodel/actions/workflows/r.yml/badge.svg)](https://github.com/scibrokes/Rmodel/actions/workflows/r.yml)
 [![R-CMD-check](https://github.com/scibrokes/Rmodel/workflows/R-CMD-check/badge.svg)](https://github.com/scibrokes/Rmodel/actions)
 
-Travis: [![Travis Build Status](https://travis-ci.com/englianhu/wk4package.svg?branch=main)](https://travis-ci.com/englianhu/wk4package)
+Travis: 
 [![Travis build status](https://travis-ci.com/scibrokes/Rmodel.svg?branch=master)](https://travis-ci.com/scibrokes/Rmodel)
 [![Travis build status](https://travis-ci.com/englianhu/Rmodel.svg?branch=master)](https://travis-ci.com/englianhu/Rmodel)
 <!-- badges: end -->
