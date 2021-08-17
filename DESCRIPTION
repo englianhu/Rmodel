@@ -1,22 +1,26 @@
 Package: Rmodel
-Type: Package
-Title: Rmodel (Odds Modelling and Testing Inefficiency of Sports Bookmakers)
+Title: Application of βayesian model on Soccer Betting
 Version: 0.2.1
-Author: ®γσ, ξηg Lian Hu
-Maintainer: The package maintainer <englianhu@gmail.com>
-Description: Soccer scores modelling and betting.
-LazyData: true
-License: GPL (>= 3) 
+Authors@R: 
+    person(given = "®γσ, Lian Hu",
+           family = "ξηg",
+           role = c("aut", "cre"),
+           email = c("englianhu@gmail.com","englianhu@scibrokes.com"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
 Encoding: UTF-8
+LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Suggests: knitr, rmarkdown, testthat (>= 3.0.0), markdown (>= 1.0), 
-	magrittr (>= 1.5)
+Suggests: knitr (>= 1.33), rmarkdown (>= 2.10), testthat (>= 3.0.4), 
+  markdown (>= 1.1), magrittr (>= 1.5)
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2021-08-03 03:29:56 JST; 
-Depends: R (>= 2.10), RODBC (>= 1.3.17), speedglm (>= 0.3.3), 
-  Matrix (>= 1.3.3), stats (>= 4.1.0)
+Packaged: 2021-08-17 19:31:36 JST; ®γσ ξηg
+Author: ®γσ ξηg [aut, cre] (YOUR-ORCID-ID)
+Maintainer: ®γσ ξηg <englianhu@gmail.com>
+Depends: R (>= 4.1), dplyr (>= 1.0.7), stats (>= 4.1.1),
+	 speedglm (>= 0.3.3), RODBC (>= 1.3.17)
 Imports: tidyr
 Config/testthat/edition: 3
-
