@@ -1,3 +1,20 @@
+utils::globalVariables(c("MatchID_7M", "MatchID_NG", "Round", "KODate", "Home", "Away", "FTHG", "FTAG", "HTHG", "HTAG"))
+#' @title Read a Rmodel query
+#'
+#' @description download soccer matches from Gooooal.com.
+#'
+#' @details This function download the soccer matches from Gooooal.com.
+#'
+#' @seealso \url{https://www.github.com/englianhu/Rmodel} for more details.
+#' @examples
+#' \dontrun{ downloadSite(http://en.gooooal.com/soccer/result/2013/league_20130905.html) }
+#'
+#' @import XML
+#' @param filename Relative filepath to the current working directory. This must be (*.zip) or it will throw an error.
+#' @return A list of data frame.
+#' @family Rmodel functions
+#' @export
+#'
 library(XML)
 downloadSite = function(URL, web.ext = c("html", "shtml"),
                         pattern = "", verbose = getOption("verbose")) {
@@ -103,9 +120,9 @@ downloadSite = function(URL, web.ext = c("html", "shtml"),
   all.links = unique(c(URL, listLinks(URL, web.ext, pattern)))
   all.links }
 
-# ??????????????????
+# -------------------------
 
 #options(verbose = TRUE)
 #lnk = downloadSite("http://en.gooooal.com/soccer/result/2013/league_20130905.html")
-# ????????????????????????????????????,?????????????????????????????????????????????
+# -------------------------
 

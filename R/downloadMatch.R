@@ -1,3 +1,33 @@
+utils::globalVariables(c("MatchID_7M", "MatchID_NG", "Round", "KODate", "Home", "Away", "FTHG", "FTAG", "HTHG", "HTAG"))
+#' @title Read a Rmodel query
+#'
+#' @description download soccer matches from Gooooal.com.
+#'
+#' @details This function download the soccer matches from Gooooal.com.
+#'
+#' @seealso \url{https://www.github.com/englianhu/Rmodel} for more details.
+#' @examples
+#' # this will stop
+#' \dontrun{ downloadMatch(URL, year) }
+#' #returns data as a data frame
+#' #setwd(system.file("data", package = "Rmodel"))
+#' #getwd()
+#' \dontrun{ downloadMatch(URL, year) }
+#' \dontrun{
+#' URL = "http://app.en.gooooal.com/soccer/statistic/standing.do?lid=4"
+#' eng2012 = downloadMatch(URL, year = 2012) }
+#' \dontrun{
+#' URL = "http://app.en.gooooal.com/soccer/statistic/standing.do?lid=4"
+#' eng2012 = downloadMatch(URL, year = 2013) }
+#'
+#' @param filename Relative filepath to the current working directory. This must be (*.zip) or it will throw an error.
+#' @import RCurl
+#' @import XML
+#' @import stringr
+#' @return A list of data frame.
+#' @family Rmodel functions
+#' @export
+#'
 downloadMatch = function(URL, year){
   # simulate to scrape English soccer matches
   # URL = "http://app.en.gooooal.com/soccer/statistic/standing.do?lid=4"
@@ -7,7 +37,7 @@ downloadMatch = function(URL, year){
   require(XML, quietly = T)
   require(stringr, quietly = T)
   options(warn = -1)
-  
+
   # season id, and input url address
   sid = year
   ori.url = paste(URL,"&sid=", sid, sep = "")
@@ -74,7 +104,7 @@ downloadMatch = function(URL, year){
   cRnd = cRnd[(regexpr("[0-9]{4}", cRnd$Rname) < 0),]
   rownames(cRnd) = NULL
   cRnd$lid = ifelse(cRnd$Rname == "Final", 1, 0)
-  cRnd$lid[as.numeric(rownames(cRnd[(regexpr("Final",cRnd$Rname) > 0),]))] = 
+  cRnd$lid[as.numeric(rownames(cRnd[(regexpr("Final",cRnd$Rname) > 0),]))] =
   leagueID$ID[leagueID$Rnd == 0]
   ic = as.numeric(rownames(cRnd)[cRnd$lid > 0])
   cRnd$lid = rep(cRnd$lid[cRnd$lid > 0], c(ic[1], diff(ic)))
@@ -93,7 +123,7 @@ downloadMatch = function(URL, year){
   # get the 90 minutes result from Chinese version webpage.
   # scoring / event time only available in Chinese version
   #    for future In-play odds modelling use.
-  cup.res = lapply(cup.url2,function(x) { 
+  cup.res = lapply(cup.url2,function(x) {
     gsub("http://app.en.gooooal.com/soccer/statistic/standing.do",
          "http://app.gooooal.com/cup2.do",x)})
   attr(cup.res,"names") = unlist(lapply(cup.res, function(x) {str_match_all(
