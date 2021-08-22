@@ -1,4 +1,3 @@
-utils::globalVariables(c("MatchID_7M", "MatchID_NG", "Round", "KODate", "Home", "Away", "FTHG", "FTAG", "HTHG", "HTAG"))
 #' @title Read a Rmodel query
 #'
 #' @description read vectors to calculate diagonal zero inflated bivariate poisson possibility and returns a list
@@ -34,7 +33,7 @@ utils::globalVariables(c("MatchID_7M", "MatchID_NG", "Round", "KODate", "Home", 
 #' @return A list of dataset from the inputted *.RData file.
 #' @family Rmodel functions
 #' @export
-
+#'
 compileIndex <- function (
   l1 = FTHG ~ 1, l2 = FTAG ~ 1, l1l2 = ~c(Home, Away) + c(Away, Home),
   l3 = ~1, data, maxit = 300, xi = NULL, fordate = NULL,
