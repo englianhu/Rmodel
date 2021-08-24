@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+stutils::globalVariables(c("MatchID_7M", "MatchID_NG", "Round", "KODate", "Home", "Away", "FTHG", "FTAG", "HTHG", "HTAG"))
+=======
+>>>>>>> 773a206afecf88cb820590f2e3d403605ddb4cd5
 #' @title Read a Rmodel query
 #'
 #' @description download soccer matches from Gooooal.com.

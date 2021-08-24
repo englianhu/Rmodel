@@ -6,3 +6,6 @@
 ^\.github$
 ^Rmodel\.Rproj$
 ^LICENSE\.md$
+^Rmodel\.Rcheck$
+^Rmodel.*\.tar\.gz$
+^Rmodel.*\.tgz$
