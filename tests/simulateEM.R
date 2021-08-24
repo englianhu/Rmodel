@@ -58,8 +58,8 @@ idx <- loadIndex(country="England",year=2008,mbase=engmdb)
 source("C:/Users/xun/Desktop/optSmoother.R")
 xi <- optSmoother(country="England", year=2008, mbase = engmdb)
 xi$decay
-Start        End        decay
-1 2009-05-24 2010-05-19 -0.007437105
+#Start        End        decay
+#1 2009-05-24 2010-05-19 -0.007437105
 
 # ----------------------------------------------------
 source("C:/Users/xun/Desktop/compileIndex.R")
@@ -74,17 +74,9 @@ dateID <- as.POSIXct(levels(factor(as.Date(engmdb$Date))))
 for (i in 370:length(dateID))
 { source <- engmdb[engmdb$Date <= dateID[i-1],]
   source <- source[!duplicated(data.frame(source$Home,source$Away)),]
-  em <- compileIndex(data = source, xi = abs(xi$decay$decay), fordate = dateID[i])  
+  em <- compileIndex(data = source, xi = abs(xi$decay$decay), fordate = dateID[i])
   saveIndex(country = "England", year = 2008, indexdata = em)
 }; rm(i, dateID, source, em)
-
-
-
-
-
-
-
-
 
 
 
