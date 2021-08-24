@@ -1,4 +1,4 @@
-utils::globalVariables(c("MatchID_7M", "MatchID_NG", "Round", "KODate", "Home", "Away", "FTHG", "FTAG", "HTHG", "HTAG"))
+stutils::globalVariables(c("MatchID_7M", "MatchID_NG", "Round", "KODate", "Home", "Away", "FTHG", "FTAG", "HTHG", "HTAG"))
 #' @title Read a Rmodel query
 #'
 #' @description download soccer matches from Gooooal.com.

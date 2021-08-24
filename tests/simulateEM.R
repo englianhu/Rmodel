@@ -1,7 +1,7 @@
 # load soccer matches from folder and filter all the soccer matches
 #   which the teams are coming from only certain leagues which from our database
-source("C:/Users/xun/Desktop/loadMatch.R")
-source("C:/Users/xun/Desktop/filterMatch.R")
+source("./R/loadMatch.R")
+source("./R/filterMatch.R")
 
 eng2008f = filterMatch(loadMatch(country = "England", year = 2008))
 eng2009f = filterMatch(loadMatch(country = "England", year = 2009))
@@ -29,8 +29,8 @@ engmdb <- engmdb[order(engmdb$Date, decreasing = T),]
 rownames(engmdb) <- NULL
 
 # ----------------------------------------------------
-source("C:/Users/xun/Desktop/compileIndex.R")
-source("C:/Users/xun/Desktop/saveIndex.R")
+source("./R/compileIndex.R")
+source("./R/saveIndex.R")
 # 225:297,298:369,370:length(dateID)
 # calculate FT score static index
 
@@ -46,7 +46,7 @@ for (i in 370:length(dateID))
 
 # ----------------------------------------------------
 # load loadIndex function
-source("C:/Users/xun/Desktop/loadIndex.R")
+source("./R/loadIndex.R")
 
 # REPEAT the below steps where the codes from above
 # load soccer matches from folder and filter all the soccer matches
@@ -55,15 +55,15 @@ source("C:/Users/xun/Desktop/loadIndex.R")
 #   engmdb is merged data of eng2009f and eng2009f where the codes from above
 idx <- loadIndex(country="England",year=2008,mbase=engmdb)
 
-source("C:/Users/xun/Desktop/optSmoother.R")
+source("./R/optSmoother.R")
 xi <- optSmoother(country="England", year=2008, mbase = engmdb)
 xi$decay
-Start        End        decay
-1 2009-05-24 2010-05-19 -0.007437105
+#Start        End        decay
+#1 2009-05-24 2010-05-19 -0.007437105
 
 # ----------------------------------------------------
-source("C:/Users/xun/Desktop/compileIndex.R")
-source("C:/Users/xun/Desktop/saveIndex.R")
+source("./R/compileIndex.R")
+source("./R/saveIndex.R")
 # 225:297,298:369,370:length(dateID)
 # calculate FT score static index
 
@@ -74,7 +74,7 @@ dateID <- as.POSIXct(levels(factor(as.Date(engmdb$Date))))
 for (i in 370:length(dateID))
 { source <- engmdb[engmdb$Date <= dateID[i-1],]
   source <- source[!duplicated(data.frame(source$Home,source$Away)),]
-  em <- compileIndex(data = source, xi = abs(xi$decay$decay), fordate = dateID[i])  
+  em <- compileIndex(data = source, xi = abs(xi$decay$decay), fordate = dateID[i])
   saveIndex(country = "England", year = 2008, indexdata = em)
 }; rm(i, dateID, source, em)
 
