@@ -17,7 +17,7 @@ utils::globalVariables(c("MatchID_7M", "MatchID_NG", "Round", "KODate", "Home", 
 #' @return A tibble from the inputted *.RData file.
 #' @family Rmodel functions
 #' @export
-
+#'
 bvp <- function (x, y = NULL, lambda = c(1, 1, 1), log = FALSE) {
   # bvp is the bivariate poisson model, input same length of x and y,
   # then key in lambda1, lambda2, lambda3 values, lambda3 is covariance.
