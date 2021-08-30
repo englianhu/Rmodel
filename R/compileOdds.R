@@ -19,7 +19,8 @@
 #' @family Rmodel functions
 #' @export
 #'
-compileOdds <- function(dbase, mbase, HT = TRUE, FT = TRUE, homeavd = TRUE, inflated = TRUE){
+compileOdds <- function(dbase, mbase, HT = TRUE, FT = TRUE, homeavd = TRUE,
+                        inflated = TRUE) {
   # dbase is the Access *.mdb file which are teams rating database,
   # mbase is the matchdata which may get from importData or other else,
   # HT and FT = TRUE will calculate both odds, you may choose either or both.
@@ -45,140 +46,218 @@ compileOdds <- function(dbase, mbase, HT = TRUE, FT = TRUE, homeavd = TRUE, infl
   ### margin.table might useful for review the odds compilation table, examples: win-draw-win
   ## ??margin.table
 
-  options(warn = -1); require(RODBC)
-  templist <- list(dbase = substitute(dbase), mbase = substitute(mbase), HT = HT, FT = FT,
+  options(warn = -1)
+  require(RODBC)
+  templist <- list(dbase = substitute(dbase), mbase = substitute(mbase),
+                   HT = HT, FT = FT,
                    homeavd = homeavd, inflated = inflated)
-  tempcall <- as.call(c(expression(compileOdds), templist)); rm(templist)
-  dbase <- substitute(dbase); datadate <- max(mbase$Date)
+  tempcall <- as.call(c(expression(compileOdds), templist))
+  rm(templist)
+  dbase <- substitute(dbase)
+  datadate <- max(mbase$Date)
+
   # --------------------------------------------------------------
-  tsHT <- function(x) { paste('tsHT_', substitute(x), sep = '')}
-  tsFT <- function(x) { paste('tsFT_', substitute(x), sep = '')}
+  tsHT <- function(x) {
+    paste('tsHT_', substitute(x), sep = '')
+  }
+  tsFT <- function(x) {
+    paste('tsFT_', substitute(x), sep = '')
+  }
   getData <- function(dbdat, tble) {
     db = as.character(dbdat)
     if(!dir.exists('database')) dir.create('database')
     con = odbcConnectAccess(paste("./database/", db, ".mdb", sep = '')) #can use `mplus` open source tool to create empty *.mdb files.
     x = structure(sqlFetch(con, tble)[-1], row.names =
                     as.character(sqlFetch(con, tble)$Date))
-    colnames(x) = gsub('_', ' ', colnames(x)); close(con); rm(con); x }
+    colnames(x) = gsub('_', ' ', colnames(x))
+    close(con)
+    rm(con)
+    x
+  }
+
   # --------------------------------------------------------------
-  diagdraw <- function(x) { z <- 1:length(x); thetap <- prob * theta
-                            for(i in 1:length(z)) { dimnames(x[[i]]) <-
-                                                      list(seq(0,(nrow(x[[i]])-1),1),seq(0,(nrow(x[[i]])-1),1)) }; rm(i)
-                            tplist <- rep(list(diag(thetap,nrow(x[[1]]),nrow(x[[1]]))),length(z))
-                            y <- lapply(z, function(z) x[[z]] + tplist[[z]] * diag(x[[z]])/sum(diag(x[[z]])))
-                            lapply(z, function(z) y[[z]]/sum(y[[z]])) }
+  diagdraw <- function(x) {
+    z <- 1:length(x)
+    thetap <- prob * theta
+    for(i in 1:length(z)) {
+      dimnames(x[[i]]) <- list(seq(0, (nrow(x[[i]]) - 1), 1),
+                               seq(0,(nrow(x[[i]]) - 1), 1))
+    }
+    rm(i)
+
+    tplist <- rep(list(diag(thetap, nrow(x[[1]]), nrow(x[[1]]))), length(z))
+    y <- lapply(z, function(z)
+      x[[z]] + tplist[[z]] * diag(x[[z]]) / sum(diag(x[[z]])))
+    res <- lapply(z, function(z) y[[z]] / sum(y[[z]]))
+    return(res)
+  }
+
   # --------------------------------------------------------------
-  fodds <- function(x, mdata) { z <- 1:length(x)
-                                data.frame(matchdata, Win  = unlist(lapply(z, function(z)
-                                  sum(x[[z]][row(x[[z]]) >  col(x[[z]])]))),
-                                           Draw = unlist(lapply(z, function(z)
-                                             sum(x[[z]][row(x[[z]]) == col(x[[z]])]))),
-                                           Lose = unlist(lapply(z, function(z)
-                                             sum(x[[z]][row(x[[z]]) <  col(x[[z]])])))) }
+  fodds <- function(x, mdata) {
+    z <- 1:length(x)
+    data.frame(matchdata,
+               Win = unlist(
+                 lapply(z, function(z)
+                   sum(x[[z]][row(x[[z]]) >  col(x[[z]])]))),
+               Draw = unlist(lapply(z, function(z)
+                 sum(x[[z]][row(x[[z]]) == col(x[[z]])]))),
+               Lose = unlist(lapply(z, function(z)
+                 sum(x[[z]][row(x[[z]]) <  col(x[[z]])]))))
+  }
+
   # --------------------------------------------------------------
-  cscores <- function(x, mdata, matchview = TRUE) { z <- 1:length(x)
-                                                    if(matchview == TRUE) {
-                                                      y <- lapply(z, function(z) x[[z]][1:5,1:5])
-                                                      mxtrnames <- rep(list(c(gsub(' ', '_', paste(
-                                                        gsub(' ', '', paste('H', row(y[[1]])-1)),
-                                                        gsub(' ', '', paste('A', col(y[[1]])-1)))),
-                                                                              'H_UP5', 'A_UP5')), length(z))
-                                                      cslist <- lapply(z, function(z) data.frame(No = z,matrix(c(y[[z]],
-                                                                                                                 sum(x[[z]][row(x[[z]])-col(x[[z]])>=5]),
-                                                                                                                 sum(x[[z]][col(x[[z]])-row(x[[z]])>=5])), ncol=27,
-                                                                                                               dimnames = list(NULL,mxtrnames[[z]]))))
-                                                      csdf <- Reduce(function(x, y) merge(x, y, all = T),
-                                                                     cslist, accumulate = F); data.frame(mdata,csdf[-1])
-                                                    } else { lapply(z, function(z) x[[z]][1:11,1:11]) } }
+  cscores <- function(x, mdata, matchview = TRUE) {
+    z <- 1:length(x)
+    if(matchview == TRUE) {
+      y <- lapply(z, function(z) x[[z]][1:5, 1:5])
+      mxtrnames <- rep(list(c(gsub(' ', '_', paste(
+        gsub(' ', '', paste('H', row(y[[1]]) - 1)),
+        gsub(' ', '', paste('A', col(y[[1]]) - 1)))),
+        'H_UP5', 'A_UP5')), length(z))
+      cslist <- lapply(z, function(z)
+        data.frame(
+          No = z, matrix(c(y[[z]], sum(x[[z]][row(x[[z]]) - col(x[[z]]) >= 5]),
+                           sum(x[[z]][col(x[[z]]) - row(x[[z]]) >= 5])),
+                         ncol = 27, dimnames = list(NULL, mxtrnames[[z]]))))
+      csdf <- Reduce(function(x, y) merge(x, y, all = TRUE),
+                     cslist, accumulate = FALSE)
+      data.frame(mdata,csdf[-1])
+    } else {
+      lapply(z, function(z) x[[z]][1:11, 1:11])
+    }
+  }
+
   # --------------------------------------------------------------
-  handicap <- function(x, mdata, matchview = T) { z <- 1:length(x)
-                                                  hmhdp1 <- lapply(z, function (z) { data.frame( No = seq(1,15,4),
-                                                                                                 hmodds = c('HN3.50', 'HN2.50','HN1.50','HN0.50'),
-                                                                                                 Home = t(data.frame(
-                                                                                                   HN3.50 = sum(x[[z]][row(x[[z]]) - col(x[[z]])>= 4]),
-                                                                                                   HN2.50 = sum(x[[z]][row(x[[z]]) - col(x[[z]])>= 3]),
-                                                                                                   HN1.50 = sum(x[[z]][row(x[[z]]) - col(x[[z]])>= 2]),
-                                                                                                   HN0.50 = sum(x[[z]][row(x[[z]]) - col(x[[z]])>= 1]))),
-                                                                                                 awodds = c('AP3.50', 'AP2.50','AP1.50','AP0.50'),
-                                                                                                 Away = t(data.frame(
-                                                                                                   AP3.50 = sum(x[[z]][row(x[[z]]) - col(x[[z]])< 4]),
-                                                                                                   AP2.50 = sum(x[[z]][row(x[[z]]) - col(x[[z]])< 3]),
-                                                                                                   AP1.50 = sum(x[[z]][row(x[[z]]) - col(x[[z]])< 2]),
-                                                                                                   AP0.50 = sum(x[[z]][row(x[[z]]) - col(x[[z]])< 1]))))})
+  handicap <- function(x, mdata, matchview = T) {
+    z <- 1:length(x)
+    hmhdp1 <- lapply(z, function (z) {
+      data.frame(No = seq(1, 15, 4),
+                 hmodds = c('HN3.50', 'HN2.50', 'HN1.50', 'HN0.50'),
+                 Home = t(data.frame(
+                   HN3.50 = sum(x[[z]][row(x[[z]]) - col(x[[z]]) >= 4]),
+                   HN2.50 = sum(x[[z]][row(x[[z]]) - col(x[[z]]) >= 3]),
+                   HN1.50 = sum(x[[z]][row(x[[z]]) - col(x[[z]]) >= 2]),
+                   HN0.50 = sum(x[[z]][row(x[[z]]) - col(x[[z]]) >= 1]))),
+                 awodds = c('AP3.50', 'AP2.50','AP1.50','AP0.50'),
+                 Away = t(data.frame(
+                   AP3.50 = sum(x[[z]][row(x[[z]]) - col(x[[z]]) < 4]),
+                   AP2.50 = sum(x[[z]][row(x[[z]]) - col(x[[z]]) < 3]),
+                   AP1.50 = sum(x[[z]][row(x[[z]]) - col(x[[z]]) < 2]),
+                   AP0.50 = sum(x[[z]][row(x[[z]]) - col(x[[z]]) < 1]))))
+      })
 
-                                                  awhdp1 <- lapply(z, function (z) { data.frame( No = seq(17,29,4),
-                                                                                                 hmodds = c('HP0.50', 'HP1.50','HP2.50','HP3.50'),
-                                                                                                 Home = t(data.frame(
-                                                                                                   HP0.50 = sum(x[[z]][col(x[[z]]) - row(x[[z]])< 1]),
-                                                                                                   HP1.50 = sum(x[[z]][col(x[[z]]) - row(x[[z]])< 2]),
-                                                                                                   HP2.50 = sum(x[[z]][col(x[[z]]) - row(x[[z]])< 3]),
-                                                                                                   HP3.50 = sum(x[[z]][col(x[[z]]) - row(x[[z]])< 4]))),
-                                                                                                 awodds = c('AN0.50', 'AN1.50','AN2.50','AN3.50'),
-                                                                                                 Away = t(data.frame(
-                                                                                                   AN0.50 = sum(x[[z]][col(x[[z]]) - row(x[[z]])>= 1]),
-                                                                                                   AN1.50 = sum(x[[z]][col(x[[z]]) - row(x[[z]])>= 2]),
-                                                                                                   AN2.50 = sum(x[[z]][col(x[[z]]) - row(x[[z]])>= 3]),
-                                                                                                   AN3.50 = sum(x[[z]][col(x[[z]]) - row(x[[z]])>= 4]))))})
+    awhdp1 <- lapply(z, function (z) {
+      data.frame(No = seq(17, 29, 4),
+                 hmodds = c('HP0.50', 'HP1.50', 'HP2.50', 'HP3.50'),
+                 Home = t(data.frame(
+                   HP0.50 = sum(x[[z]][col(x[[z]]) - row(x[[z]]) < 1]),
+                   HP1.50 = sum(x[[z]][col(x[[z]]) - row(x[[z]]) < 2]),
+                   HP2.50 = sum(x[[z]][col(x[[z]]) - row(x[[z]]) < 3]),
+                   HP3.50 = sum(x[[z]][col(x[[z]]) - row(x[[z]]) < 4]))),
+                 awodds = c('AN0.50', 'AN1.50', 'AN2.50', 'AN3.50'),
+                 Away = t(data.frame(
+                   AN0.50 = sum(x[[z]][col(x[[z]]) - row(x[[z]]) >= 1]),
+                   AN1.50 = sum(x[[z]][col(x[[z]]) - row(x[[z]]) >= 2]),
+                   AN2.50 = sum(x[[z]][col(x[[z]]) - row(x[[z]]) >= 3]),
+                   AN3.50 = sum(x[[z]][col(x[[z]]) - row(x[[z]]) >= 4]))))
+    })
 
-                                                  hmhdp2 <- lapply(z, function (z) { data.frame( No = seq(3,15,4),
-                                                                                                 hmodds = c('HN3.00', 'HN2.00','HN1.00','H0.00'),
-                                                                                                 Home = t(data.frame(
-                                                                                                   HN3.00 = sum(hmhdp1[[z]]['HN3.50','Home'],hmhdp1[[z]]['HN2.50','Home'])/2,
-                                                                                                   HN2.00 = sum(hmhdp1[[z]]['HN2.50','Home'],hmhdp1[[z]]['HN1.50','Home'])/2,
-                                                                                                   HN1.00 = sum(hmhdp1[[z]]['HN1.50','Home'],hmhdp1[[z]]['HN0.50','Home'])/2,
-                                                                                                   H0.00  = sum(hmhdp1[[z]]['HN0.50','Home'],awhdp1[[z]]['HP0.50','Home'])/2)),
-                                                                                                 awodds = c('AP3.00', 'AP2.00','AP1.00','A0.00'),
-                                                                                                 Away = t(data.frame(
-                                                                                                   AP3.00 = sum(hmhdp1[[z]]['HN3.50','Away'],hmhdp1[[z]]['HN2.50','Away'])/2,
-                                                                                                   AP2.00 = sum(hmhdp1[[z]]['HN2.50','Away'],hmhdp1[[z]]['HN1.50','Away'])/2,
-                                                                                                   AP1.00 = sum(hmhdp1[[z]]['HN1.50','Away'],hmhdp1[[z]]['HN0.50','Away'])/2,
-                                                                                                   A0.00  = sum(hmhdp1[[z]]['HN0.50','Away'],awhdp1[[z]]['HP0.50','Away'])/2)))})
+    hmhdp2 <- lapply(z, function (z) {
+      data.frame(No = seq(3, 15, 4),
+                 hmodds = c('HN3.00', 'HN2.00', 'HN1.00', 'H0.00'),
+                 Home = t(data.frame(
+                   HN3.00 = sum(hmhdp1[[z]]['HN3.50', 'Home'],
+                                hmhdp1[[z]]['HN2.50', 'Home']) / 2,
+                   HN2.00 = sum(hmhdp1[[z]]['HN2.50', 'Home'],
+                                hmhdp1[[z]]['HN1.50', 'Home']) / 2,
+                   HN1.00 = sum(hmhdp1[[z]]['HN1.50', 'Home'],
+                                hmhdp1[[z]]['HN0.50', 'Home']) / 2,
+                   H0.00  = sum(hmhdp1[[z]]['HN0.50', 'Home'],
+                                awhdp1[[z]]['HP0.50', 'Home']) / 2)),
+                 awodds = c('AP3.00', 'AP2.00', 'AP1.00', 'A0.00'),
+                 Away = t(data.frame(
+                   AP3.00 = sum(hmhdp1[[z]]['HN3.50', 'Away'],
+                                hmhdp1[[z]]['HN2.50', 'Away']) / 2,
+                   AP2.00 = sum(hmhdp1[[z]]['HN2.50', 'Away'],
+                                hmhdp1[[z]]['HN1.50', 'Away']) / 2,
+                   AP1.00 = sum(hmhdp1[[z]]['HN1.50', 'Away'],
+                                hmhdp1[[z]]['HN0.50', 'Away']) / 2,
+                   A0.00  = sum(hmhdp1[[z]]['HN0.50', 'Away'],
+                                awhdp1[[z]]['HP0.50', 'Away']) / 2)))
+    })
 
-                                                  awhdp2 <- lapply(z, function (z) { data.frame( No = seq(15,29,4),
-                                                                                                 hmodds = c('H0.00', 'HP1.00','HP2.00','HP3.00'),
-                                                                                                 Home = t(data.frame(
-                                                                                                   H0.00  = sum(awhdp1[[z]]['HP0.50','Home'],hmhdp1[[z]]['HN0.50','Home'])/2,
-                                                                                                   HP1.00 = sum(awhdp1[[z]]['HP1.50','Home'],awhdp1[[z]]['HP0.50','Home'])/2,
-                                                                                                   HP2.00 = sum(awhdp1[[z]]['HP2.50','Home'],awhdp1[[z]]['HP1.50','Home'])/2,
-                                                                                                   HP3.00 = sum(awhdp1[[z]]['HP3.50','Home'],awhdp1[[z]]['HP2.50','Home'])/2)),
-                                                                                                 awodds = c('A0.00', 'AN1.00','AN2.00','AN3.00'),
-                                                                                                 Away = t(data.frame(
-                                                                                                   A0.00  = sum(awhdp1[[z]]['HP0.50','Away'],hmhdp1[[z]]['HN0.50','Away'])/2,
-                                                                                                   AN1.00 = sum(awhdp1[[z]]['HP1.50','Away'],awhdp1[[z]]['HP0.50','Away'])/2,
-                                                                                                   AN2.00 = sum(awhdp1[[z]]['HP2.50','Away'],awhdp1[[z]]['HP1.50','Away'])/2,
-                                                                                                   AN3.00 = sum(awhdp1[[z]]['HP3.50','Away'],awhdp1[[z]]['HP2.50','Away'])/2)))})
+    awhdp2 <- lapply(z, function (z) {
+      data.frame(No = seq(15, 29, 4),
+                 hmodds = c('H0.00', 'HP1.00', 'HP2.00', 'HP3.00'),
+                 Home = t(data.frame(
+                   H0.00  = sum(awhdp1[[z]]['HP0.50', 'Home'],
+                                hmhdp1[[z]]['HN0.50', 'Home']) / 2,
+                   HP1.00 = sum(awhdp1[[z]]['HP1.50', 'Home'],
+                                awhdp1[[z]]['HP0.50', 'Home']) / 2,
+                   HP2.00 = sum(awhdp1[[z]]['HP2.50', 'Home'],
+                                awhdp1[[z]]['HP1.50', 'Home']) / 2,
+                   HP3.00 = sum(awhdp1[[z]]['HP3.50', 'Home'],
+                                awhdp1[[z]]['HP2.50', 'Home']) / 2)),
+                 awodds = c('A0.00', 'AN1.00', 'AN2.00', 'AN3.00'),
+                 Away = t(data.frame(
+                   A0.00  = sum(awhdp1[[z]]['HP0.50', 'Away'],
+                                hmhdp1[[z]]['HN0.50', 'Away']) / 2,
+                   AN1.00 = sum(awhdp1[[z]]['HP1.50', 'Away'],
+                                awhdp1[[z]]['HP0.50', 'Away']) / 2,
+                   AN2.00 = sum(awhdp1[[z]]['HP2.50', 'Away'],
+                                awhdp1[[z]]['HP1.50', 'Away']) / 2,
+                   AN3.00 = sum(awhdp1[[z]]['HP3.50', 'Away'],
+                                awhdp1[[z]]['HP2.50', 'Away']) / 2)))
+    })
 
-                                                  hmhdp3 <- lapply(z, function (z) { data.frame( No = seq(2,15,2),
-                                                                                                 hmodds = c('HN3.25','HN2.75', 'HN2.25','HN1.75','HN1.25','HN0.75','HN0.25'),
-                                                                                                 Home = t(data.frame(
-                                                                                                   HN3.25 = sum(hmhdp1[[z]]['HN3.50','Home'],hmhdp2[[z]]['HN3.00','Home'])/2,
-                                                                                                   HN2.75 = sum(hmhdp2[[z]]['HN3.00','Home'],hmhdp1[[z]]['HN2.50','Home'])/2,
-                                                                                                   HN2.25 = sum(hmhdp1[[z]]['HN2.50','Home'],hmhdp2[[z]]['HN2.00','Home'])/2,
-                                                                                                   HN1.75 = sum(hmhdp2[[z]]['HN2.00','Home'],hmhdp1[[z]]['HN1.50','Home'])/2,
-                                                                                                   HN1.25 = sum(hmhdp1[[z]]['HN1.50','Home'],hmhdp2[[z]]['HN1.00','Home'])/2,
-                                                                                                   HN0.75 = sum(hmhdp2[[z]]['HN1.00','Home'],hmhdp1[[z]]['HN0.50','Home'])/2,
-                                                                                                   HN0.25 = sum(hmhdp1[[z]]['HN0.50','Home'],hmhdp2[[z]]['H0.00','Home'])/2)),
-                                                                                                 awodds = c('AP3.25', 'AP2.75','AP2.25','AP1.75','AP1.25','AP0.75','AP0.25'),
-                                                                                                 Away = t(data.frame(
-                                                                                                   AP3.25 = sum(hmhdp1[[z]]['HN3.50','Away'],hmhdp2[[z]]['HN3.00','Away'])/2,
-                                                                                                   AP2.75 = sum(hmhdp2[[z]]['HN3.00','Away'],hmhdp1[[z]]['HN2.50','Away'])/2,
-                                                                                                   AP2.25 = sum(hmhdp1[[z]]['HN2.50','Away'],hmhdp2[[z]]['HN2.00','Away'])/2,
-                                                                                                   AP1.75 = sum(hmhdp2[[z]]['HN2.00','Away'],hmhdp1[[z]]['HN1.50','Away'])/2,
-                                                                                                   AP1.25 = sum(hmhdp1[[z]]['HN1.50','Away'],hmhdp2[[z]]['HN1.00','Away'])/2,
-                                                                                                   AP0.75 = sum(hmhdp2[[z]]['HN1.00','Away'],hmhdp1[[z]]['HN0.50','Away'])/2,
-                                                                                                   AP0.25 = sum(hmhdp1[[z]]['HN0.50','Away'],hmhdp2[[z]]['H0.00','Away'])/2)))})
+    hmhdp3 <- lapply(z, function (z) {
+      data.frame( No = seq(2, 15, 2),
+                  hmodds = c('HN3.25', 'HN2.75', 'HN2.25', 'HN1.75', 'HN1.25', 'HN0.75', 'HN0.25'),
+                  Home = t(data.frame(
+                    HN3.25 = sum(hmhdp1[[z]]['HN3.50', 'Home'],
+                                 hmhdp2[[z]]['HN3.00', 'Home']) / 2,
+                    HN2.75 = sum(hmhdp2[[z]]['HN3.00', 'Home'],
+                                 hmhdp1[[z]]['HN2.50', 'Home']) / 2,
+                    HN2.25 = sum(hmhdp1[[z]]['HN2.50', 'Home'],
+                                 hmhdp2[[z]]['HN2.00', 'Home']) / 2,
+                    HN1.75 = sum(hmhdp2[[z]]['HN2.00', 'Home'],
+                                 hmhdp1[[z]]['HN1.50', 'Home']) / 2,
+                    HN1.25 = sum(hmhdp1[[z]]['HN1.50', 'Home'],
+                                 hmhdp2[[z]]['HN1.00', 'Home']) / 2,
+                    HN0.75 = sum(hmhdp2[[z]]['HN1.00', 'Home'],
+                                 hmhdp1[[z]]['HN0.50', 'Home']) / 2,
+                    HN0.25 = sum(hmhdp1[[z]]['HN0.50', 'Home'],
+                                 hmhdp2[[z]]['H0.00', 'Home']) / 2)),
+                  awodds = c('AP3.25', 'AP2.75', 'AP2.25', 'AP1.75', 'AP1.25', 'AP0.75', 'AP0.25'),
+                  Away = t(data.frame(
+                    AP3.25 = sum(hmhdp1[[z]]['HN3.50', 'Away'],
+                                 hmhdp2[[z]]['HN3.00', 'Away']) / 2,
+                    AP2.75 = sum(hmhdp2[[z]]['HN3.00', 'Away'],
+                                 hmhdp1[[z]]['HN2.50', 'Away']) / 2,
+                    AP2.25 = sum(hmhdp1[[z]]['HN2.50', 'Away'],
+                                 hmhdp2[[z]]['HN2.00', 'Away']) / 2,
+                    AP1.75 = sum(hmhdp2[[z]]['HN2.00', 'Away'],
+                                 hmhdp1[[z]]['HN1.50', 'Away']) / 2,
+                    AP1.25 = sum(hmhdp1[[z]]['HN1.50', 'Away'],
+                                 hmhdp2[[z]]['HN1.00', 'Away']) / 2,
+                    AP0.75 = sum(hmhdp2[[z]]['HN1.00', 'Away'],
+                                 hmhdp1[[z]]['HN0.50', 'Away']) / 2,
+                    AP0.25 = sum(hmhdp1[[z]]['HN0.50', 'Away'],
+                                 hmhdp2[[z]]['H0.00', 'Away']) / 2)))
+    })
 
-                                                  awhdp3 <- lapply(z, function (z) { data.frame( No = seq(16,28,2),
-                                                                                                 hmodds = c('HP0.25','HP0.75', 'HP1.25','HP1.75','HP2.25','HP2.75','HP3.25'),
-                                                                                                 Home = t(data.frame(
-                                                                                                   HP0.25 = sum(awhdp1[[z]]['HP0.50','Home'],awhdp2[[z]]['H0.00','Home'])/2,
-                                                                                                   HP0.75 = sum(awhdp2[[z]]['HP1.00','Home'],awhdp1[[z]]['HP0.50','Home'])/2,
-                                                                                                   HP1.25 = sum(awhdp1[[z]]['HP1.50','Home'],awhdp2[[z]]['HP1.00','Home'])/2,
-                                                                                                   HP1.75 = sum(awhdp2[[z]]['HP2.00','Home'],awhdp1[[z]]['HP1.50','Home'])/2,
-                                                                                                   HP2.25 = sum(awhdp1[[z]]['HP2.50','Home'],awhdp2[[z]]['HP2.00','Home'])/2,
-                                                                                                   HP2.75 = sum(awhdp2[[z]]['HP3.00','Home'],awhdp1[[z]]['HP2.50','Home'])/2,
-                                                                                                   HP3.25 = sum(awhdp1[[z]]['HP3.50','Home'],awhdp2[[z]]['HP3.00','Home'])/2)),
-                                                                                                 awodds = c('AN0.25', 'AN0.75','AN1.25','AN1.75','AN2.25','AN2.75','AN3.25'),
+    awhdp3 <- lapply(z, function (z) {
+      data.frame(No = seq(16, 28, 2),
+                 hmodds = c('HP0.25','HP0.75', 'HP1.25','HP1.75','HP2.25','HP2.75','HP3.25'),
+                 Home = t(data.frame(
+                   HP0.25 = sum(awhdp1[[z]]['HP0.50','Home'],awhdp2[[z]]['H0.00','Home'])/2,
+                   HP0.75 = sum(awhdp2[[z]]['HP1.00','Home'],awhdp1[[z]]['HP0.50','Home'])/2,
+                   HP1.25 = sum(awhdp1[[z]]['HP1.50','Home'],awhdp2[[z]]['HP1.00','Home'])/2,
+                   HP1.75 = sum(awhdp2[[z]]['HP2.00','Home'],awhdp1[[z]]['HP1.50','Home'])/2,
+                   HP2.25 = sum(awhdp1[[z]]['HP2.50','Home'],awhdp2[[z]]['HP2.00','Home'])/2,
+                   HP2.75 = sum(awhdp2[[z]]['HP3.00','Home'],awhdp1[[z]]['HP2.50','Home'])/2,
+                   HP3.25 = sum(awhdp1[[z]]['HP3.50','Home'],awhdp2[[z]]['HP3.00','Home'])/2)),
+                 awodds = c('AN0.25', 'AN0.75','AN1.25','AN1.75','AN2.25','AN2.75','AN3.25'),
                                                                                                  Away = t(data.frame(
                                                                                                    AN0.25 = sum(awhdp1[[z]]['HP0.50','Away'],awhdp2[[z]]['H0.00','Away'])/2,
                                                                                                    AN0.75 = sum(awhdp2[[z]]['HP1.00','Away'],awhdp1[[z]]['HP0.50','Away'])/2,
