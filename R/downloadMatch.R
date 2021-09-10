@@ -1,7 +1,5 @@
-<<<<<<< HEAD
-stutils::globalVariables(c("MatchID_7M", "MatchID_NG", "Round", "KODate", "Home", "Away", "FTHG", "FTAG", "HTHG", "HTAG"))
-=======
->>>>>>> 773a206afecf88cb820590f2e3d403605ddb4cd5
+stutils::globalVariables(c("MatchID_7M", "MatchID_NG", "Round", "KODate",
+                           "Home", "Away", "FTHG", "FTAG", "HTHG", "HTAG"))
 #' @title Read a Rmodel query
 #'
 #' @description download soccer matches from Gooooal.com.
@@ -31,7 +29,7 @@ stutils::globalVariables(c("MatchID_7M", "MatchID_NG", "Round", "KODate", "Home"
 #' @family Rmodel functions
 #' @export
 #'
-downloadMatch = function(URL, year){
+downloadMatch = function(URL, year) {
   # simulate to scrape English soccer matches
   # URL = "http://app.en.gooooal.com/soccer/statistic/standing.do?lid=4"
   # eng2012 = downloadMatch(URL, year = 2012)
