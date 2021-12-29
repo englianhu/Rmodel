@@ -19,7 +19,7 @@ Travis:
 
 `Rmodel` which compile the index of soccer teams and predict the soccer scores. Odds modelling for 1x2, Asian Handicap, Over Under, Correct Score, Half-Time Full-Time etc.
 
-```
+```{r}
 if(!require('devtools')) install.packages('devtools')
 devtools::install_github('englianhu/Rmodel')
 ```
@@ -42,4 +42,4 @@ Kindly refer to below for further information.
 
 ---
 
-**Powered by - Copyright® Intellectual Property Rights of <img src='figure/scb-logo3rs.jpg' width='16'> [Scibrokes®](http://www.scibrokes.com)個人の経営企業**
+<span style='color:RoyalBlue'>**Powered by - Copyright® Intellectual Property Rights of [<img src="figure/Scibrokes.png" width="14"/> Sςιβrοκεrs Trαdιηg®](http://www.scibrokes.com) 個人の経営企業**</span>
