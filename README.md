@@ -9,6 +9,10 @@ Travis:
 [![Travis build status](https://travis-ci.com/englianhu/Rmodel.svg?branch=master)](https://travis-ci.com/englianhu/Rmodel)
 <!-- badges: end -->
 
+> A place for publishing new versions of (some) stan-dev R packages before they reach CRAN and for stan-dev R packages and versions where releasing on CRAN is not a (current) goal. As of 2021-03-16 this is most relevant for rstan, where the CRAN version is unfortunately several releases behind and pushing a new version to CRAN has been difficult.
+
+Citation : [Repository for distributing (some) stan-dev R packages](https://github.com/englianhu/r-packages)
+
 ## 1. Soccer Scores Modelling
 
   Initially I collected soccer odds data of 40 bookmakers (in Excel format) and compare the efficiency and accuracy. I tried to submit the spreadsheets to [Ladbrokes](https://www.ladbrokescoralplc.com/) in order to get the trading department when I worked in [Scicom (MSC) Bhd](http://www.scicom-intl.com/).
