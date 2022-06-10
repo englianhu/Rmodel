@@ -1,4 +1,7 @@
 # Rmodel
+
+---
+
 <!-- badges: start -->
 ![GitHub R package version](https://img.shields.io/github/r-package/v/englianhu/rmodel?color=%238E1F07&style=plastic)
 [![R](https://github.com/scibrokes/Rmodel/actions/workflows/r.yml/badge.svg)](https://github.com/scibrokes/Rmodel/actions/workflows/r.yml)
@@ -9,9 +12,12 @@ Travis:
 [![Travis build status](https://travis-ci.com/englianhu/Rmodel.svg?branch=master)](https://travis-ci.com/englianhu/Rmodel)
 <!-- badges: end -->
 
+
 > A place for publishing new versions of (some) stan-dev R packages before they reach CRAN and for stan-dev R packages and versions where releasing on CRAN is not a (current) goal. As of 2021-03-16 this is most relevant for rstan, where the CRAN version is unfortunately several releases behind and pushing a new version to CRAN has been difficult.
 
 Citation : [Repository for distributing (some) stan-dev R packages](https://github.com/englianhu/r-packages)
+
+<br>
 
 ## 1. Soccer Scores Modelling
 
