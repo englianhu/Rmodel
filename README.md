@@ -54,5 +54,7 @@ Kindly refer to below for further information.
 
 ---
 
-[<img src="文艺坊图库/Scibrokes.png" height="14"/> SÏÎ¹Î²rÎ¿ÎºÎµrs TrÎ±dÎ¹Î·gÂ®](http://www.scibrokes.com)<br>
-<span style='color:RoyalBlue'>**[<img src="文艺坊图库/Scibrokes.png" height="14"/> ä¸åéåÂ®](http://www.scibrokes.com)ä¼ä¸ç¥è¯äº§æåçæææï¼ççå¿ç©¶ã**</span>
+<br>
+
+[<img src='文艺坊图库/Scibrokes.png' height='14'/> Sςιβrοκεrs Trαdιηg®](http://www.scibrokes.com)<br>
+<span style='color:RoyalBlue'>**[<img src='文艺坊图库/Scibrokes.png' height='14'/> 世博量化®](http://www.scibrokes.com)企业知识产权及版权所有，盗版必究。**</span>
