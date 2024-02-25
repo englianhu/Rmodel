@@ -1,3 +1,11 @@
+# 麻省理工经营执照
+
+知识产权（权）二零二一年 **鄀编程统计模型** 作者
+
+
+
+------
+
 # MIT License
 
 Copyright (c) 2021 Rmodel authors
