@@ -50,11 +50,9 @@ Kindly refer to below for further information.
 - [Odds Modelling and Testing Inefficiency of Sports Bookmakers](https://github.com/scibrokes/odds-modelling-and-testing-inefficiency-of-sports-bookmakers)
 - [Bookdown contest submission : Odds Modelling and Testing Inefficiency of Sports Bookmakers](http://rpubs.com/englianhu/rmodel-vignettes1)
 
-<br>
+<br><br>
 
 ---
 
-<br>
-
 [<img src='诸子百家考工记/世博量化.png' height='14'/> Sςιβrοκεrs Trαdιηg®](http://www.scibrokes.com)<br>
-<span style='color:RoyalBlue'>**[<img src='诸子百家考工记/世博量化.png' height='14'/> 世博量化®](http://www.scibrokes.com)企业知识产权及版权所有，盗版必究。**</span>
+<span style='color:RoyalBlue'>**[<img src='诸子百家考工记/世博量化.png' height='14'/> 世博量化®](http://www.scibrokes.com)企业知识产权®及版权®所有，盗版必究。**</span>
