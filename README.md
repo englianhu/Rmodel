@@ -1,4 +1,4 @@
-# Rmodel
+# 鄀尤物
 
 ---
 
@@ -19,7 +19,7 @@ Citation : [Repository for distributing (some) stan-dev R packages](https://gith
 
 <br>
 
-## 1. Soccer Scores Modelling
+## 1. 足球入球计数|机数编程造物
 
   Initially I collected soccer odds data of 40 bookmakers (in Excel format) and compare the efficiency and accuracy. I tried to submit the spreadsheets to [Ladbrokes](https://www.ladbrokescoralplc.com/) in order to get the trading department when I worked in [Scicom (MSC) Bhd](http://www.scicom-intl.com/).
 
@@ -30,25 +30,30 @@ Citation : [Repository for distributing (some) stan-dev R packages](https://gith
 `Rmodel` which compile the index of soccer teams and predict the soccer scores. Odds modelling for 1x2, Asian Handicap, Over Under, Correct Score, Half-Time Full-Time etc.
 
 ```{r}
-if(!require('devtools')) install.packages('devtools')
-devtools::install_github('englianhu/Rmodel')
+## 倘若程序包尚未安装，自动下载、安装并读取。
+if(!require('Rmodel')) {
+  if(!require('devtools')) install.packages('devtools')
+  devtools::install_github('englianhu/Rmodel')
+  library('devtools')
+}
 ```
 
-## 2. Betting Strategy
+## 二、投注策略|投资战略
 
-  I have simulate a betting model on 13 bookmakers across 2 soccer seasons in English 2011/12 and 2012/13. Kindly refer to below techincal research.
+在此愚生从[7M](http://www.7msport.com)和[NowGoal.com](http://www.nowgoal.com)赔率资讯网上自动採撷赔率数据，欲知更多详情请查阅[「猫城」WebDriver-DynamicWebpage-Scrapping](https://github.com/scibrokes/webdriver-dynamicwebpage-scrapping)并且使用凯利标准计数|机数尤物，从模拟与回测天下诸侯霸主主要十三家博彩庄两个赛季中可以获利超过三成。
 
-  - [Application of Kelly model in English Soccer session 2011/12](http://rpubs.com/englianhu/kelly_eng1112)
-  - [Application of Kelly model in English Soccer session 2012/13](http://rpubs.com/englianhu/kelly_eng1213)
+- [「猫城」在足彩投注策略|投资战略中，采用凯利标准计数|机数尤物（英）](https://github.com/scibrokes/kelly-criterion)
+- [在英超二零二一/二零二二年赛季中，使用凯利标准计数|机数尤物（英）](http://rpubs.com/englianhu/kelly_eng1112)
+- [在英超二零二二/二零二三年赛季中，使用凯利标准计数|机数尤物（英）](http://rpubs.com/englianhu/kelly_eng1213)
 
-  Kindly refer to [Application of Kelly Criterion model in Sportsbook Investment](https://github.com/scibrokes/kelly-criterion) for further information.
+欲知更多详情，请查阅[「猫城」投注策略|投资战略和计数|机数造物鉴别（英）](https://github.com/scibrokes/betting-strategy-and-model-validation)。
 
-## 3. Vignettes
+## 3. 相关资源与课外参考文献
 
-Kindly refer to below for further information.
+欲知更多详情，请查阅：
 
-- [Odds Modelling and Testing Inefficiency of Sports Bookmakers](https://github.com/scibrokes/odds-modelling-and-testing-inefficiency-of-sports-bookmakers)
-- [Bookdown contest submission : Odds Modelling and Testing Inefficiency of Sports Bookmakers](http://rpubs.com/englianhu/rmodel-vignettes1)
+- [「猫城」赔率计数|机数造物（打造尤物）建模与试探体育彩券商的昏庸、无能、腐败与破绽（英）](https://github.com/scibrokes/odds-modelling-and-testing-inefficiency-of-sports-bookmakers)
+- [「鄀客栈」Bookdown竞赛参赛作品：赔率计数|机数造物（打造尤物）建模与试探体育彩券商的昏庸、无能、腐败与破绽（英）](http://rpubs.com/englianhu/rmodel-vignettes1)
 
 <br><br>
 
