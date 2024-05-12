@@ -12,22 +12,21 @@ Travis:
 [![Travis build status](https://travis-ci.com/englianhu/Rmodel.svg?branch=master)](https://travis-ci.com/englianhu/Rmodel)
 <!-- badges: end -->
 
-
 > A place for publishing new versions of (some) stan-dev R packages before they reach CRAN and for stan-dev R packages and versions where releasing on CRAN is not a (current) goal. As of 2021-03-16 this is most relevant for rstan, where the CRAN version is unfortunately several releases behind and pushing a new version to CRAN has been difficult.
 
-Citation : [Repository for distributing (some) stan-dev R packages](https://github.com/englianhu/r-packages)
+*Citation : [Repository for distributing (some) stan-dev R packages](https://github.com/englianhu/r-packages)*
 
 <br>
 
-## 1. 足球入球计数|机数编程造物
+## 一、足球入球计数|机数编程造物
 
-  Initially I collected soccer odds data of 40 bookmakers (in Excel format) and compare the efficiency and accuracy. I tried to submit the spreadsheets to [Ladbrokes](https://www.ladbrokescoralplc.com/) in order to get the trading department when I worked in [Scicom (MSC) Bhd](http://www.scicom-intl.com/).
+二零零八年至二零一二年在西施康[Scicom (MSC) Bhd](http://www.scicom-intl.com)史，首先花了一两年时间自修鄀计数|机数编程语言边学习编程和足彩量化对冲，详情请查阅[]()。从卌家天下足彩庄霸主採撷赔率数据并通过鄀计数|机数编程语言筹算占卜与回测后，将科研论文的总汇数据记录在电子表格上，比较对角零通膨双变量泊松加权时间序列尤物与博彩庄的有效性与概率精准度，然后将电子表格通过与上司副总洋蕃麦克·卡特·克里斯多费尔·殡·阿杜拉提交给客户公司[立博（英）官方网站Ladbrokes](https://www.ladbrokescoralplc.com)英国百年老店，争取在咱们马来西亚建立个博彩交易部门和博彩科研部门以承接立博百年老店的核心业务先立有一席之地，将洋蕃的学术都学习过来后发展咱们世袭制道教徒的高频量化对冲，如同明治维新史，拯救亚洲人。
 
-- Learn the knowledge in sportsbook from tip-to-toe as you can know via [®γσ, ξηg Lian Hu](https://englianhu.wordpress.com/).
-- Collect the livescore and also 1x2, Asian Handicap, Over Under odds price data of 29 sportsbookmakers manually from 500WAN, BET007 and NowGoal website and filter the odds price data from 2006 to 2011.
-- Apply Poisson model in R to test the return of the investment. This research job is the most completed, success and the first research which write the whole odds compilation EM model and data management by refer to thousands of research papers in sportsbook odds modelling after resigned from Caspo Inc.
+- 从博彩业动态新闻、赔率计数|机数造物、基本功、足彩高频量化对冲、编程、管理等，从基本功开始自修。欲知更多详情，请查阅[「文派」赢家黄氏江夏堂，联富](https://englianhu.wordpress.com)。
+- 从五佰万、BET零零七、NowGoal资讯网，手动採撷即时比分和廿九家天下霸主欧赔、亚赔、大小数据，从二零零六年到二零一一年足彩数据。
+- 通过鄀计数|机数编程语言采用泊松尤物来回测投资回酬，此科研论文是愚生首作，完善、自修并超过一千篇科研论文中筛选出可以成功通过算卜来筹算和占卜出比足彩庄还高效率和精准并且可以获利的计数|机数编程尤物**棣逊与克尔斯（一九九六∙英）** 和 **依酉安尼斯∙猪肉法拉斯（二零零五∙英）**、成功学习高频量化对冲基金的基本赔率计数|机数造物、从比较丑算出来的`EM`赔率和`BK`博彩庄赔率和基本足彩数据管理。也是咱们亚洲博彩庄几十年来，首篇证实洋人高频量化对冲基金获利的计数|机数造物。
 
-`Rmodel` which compile the index of soccer teams and predict the soccer scores. Odds modelling for 1x2, Asian Handicap, Over Under, Correct Score, Half-Time Full-Time etc.
+`Rmodel`（鄀尤物）通过计数|机数编程造物，将足球队伍的进球率来筹算出足球球队实力，包括编译并占卜欧赔、亚赔、大小、正确比分、半场全场等概率与磐口赔率。
 
 ```{r}
 ## 倘若程序包尚未安装，自动下载、安装并读取。
