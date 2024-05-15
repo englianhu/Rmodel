@@ -28,7 +28,7 @@ Travis:
 
 鄀尤物`Rmodel`计数|机数编程程序包，回测、筹算与占卜主场优势、蹴鞠球队的攻击力（入球率）与预防力（失球率），包括编译并占卜欧赔、亚赔、大小、正确比分、半场全场等概率与磐口赔率。
 
-```{r}
+```r
 ## 倘若程序包尚未安装，自动下载、安装并读取。
 if(!require('Rmodel')) {
   if(!require('devtools')) install.packages('devtools')
